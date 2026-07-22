@@ -1,0 +1,10 @@
+# OS junk
+.DS_Store
+Thumbs.db
+# editor
+.vscode/
+*.swp
+# local backups / exports (keep the repo clean)
+*-record-*.json
+_backup/
+アーカイブ/
