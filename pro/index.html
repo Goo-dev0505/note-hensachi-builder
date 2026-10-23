@@ -252,8 +252,8 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 <h1>Note偏差値診断ビルダー</h1>
 
 <div class="credit">
-  <div class="c-row"><span class="c-label">Original</span><span>営業fafa｜note業界No.1営業マン（<a href="https://note.com/kohana1112" target="_blank" rel="noopener">note.com/kohana1112</a>）</span></div>
-  <div class="c-row"><span class="c-label">Tool by</span><span>KITAcore — 原作プロンプトをHTMLツール化</span></div>
+  <div class="c-row"><span class="c-label">Original</span><span>営業fafa｜note業界No.1営業マン（<a href="https://note.com/kohana1112" target="_blank" rel="noopener">note.com/kohana1112</a>）— 原作「Note偏差値診断」プロンプト・大学ランク表</span></div>
+  <div class="c-row"><span class="c-label">V2 by</span><span>KITAcore — 原作をHTMLツール化（v1）→ 成長記録・演出を追加（v2）→ IMP×PV対応で採点を再設計、露出タイプ・PRO INSIGHTSを追加（V2 / v3）</span></div>
 </div>
 
 <!-- view switch -->
@@ -557,7 +557,7 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 
 <footer>
   <span id="verFoot"></span><br>
-  Original Prompt: 営業fafa｜note業界No.1営業マン ／ Tool: KITACORE<br>
+  Original Prompt: 営業fafa｜note業界No.1営業マン ／ V2 Redesign &amp; Build: KITACORE<br>
   本ツールはエンタメ診断です。偏差値・大学ランクは実際の能力や社会的評価を保証するものではありません。
 </footer>
 </div>
@@ -2819,7 +2819,7 @@ function buildCard(){
   }
   // footer
   ctx.fillStyle="#6B6B6B"; ctx.font="11px monospace";
-  ctx.fillText("Original: 営業fafa｜note業界No.1営業マン / Tool: KITAcore", 40, H-44);
+  ctx.fillText("Original: 営業fafa｜note業界No.1営業マン / V2 Redesign & Build: KITAcore", 40, H-44);
   ctx.fillText(fullDate(latest.t)+" 時点 ｜ エンタメ診断", 40, H-28);
   ctx.fillText("note-hensachi-builder v"+APP_VERSION+(APP_EDITION?" "+APP_EDITION:"")+" (build "+APP_BUILD+")", 40, H-12);
   $("cardModal").classList.add("show");
