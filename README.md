@@ -1,4 +1,4 @@
-# Note偏差値診断ビルダー V3 — IMP×PV Edition
+# Note偏差値診断ビルダー V3 — IMP×PV Edition（＋ V3 Pro）
 
 note運用実績を入力すると「note偏差値」「戦闘力」「大学ランク」を採点し、
 ChatGPT用の診断カード画像プロンプトを生成するシングルファイルHTMLツール。
@@ -54,7 +54,7 @@ python3 -m http.server 8000
 
 ## PRO版（メンバーシップ用）
 
-- `pro/index.html` … **V3 PRO — Membership Edition**。採点・プロンプトは公開版と完全に同一で、スコア非加算の「PRO INSIGHTS」を追加
+- `pro/index.html` … **Note偏差値診断ビルダー V3 Pro — Membership Edition**。採点・プロンプトは公開版と完全に同一で、スコア非加算の「PRO INSIGHTS」を追加
   - 01 リーチ倍率（月間IMP ÷ フォロワー数）… フォロワー圏外にどれだけ届いているか
   - 02 収益構造（マネタイズ先9か所 × 3型）… 金額ではなく収益の構造を見る
   - 03 収益シミュレーター（目標月収 → 到達偏差値）… Revenue Planner 連携
