@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Note偏差値診断 Prompt Builder</title>
+<title>Note偏差値診断ビルダー V3 — IMP×PV Edition</title>
 <style>
 :root{
   --bg:#E9E9E9; --surface:#FFFFFF; --surface-v:#F4F4F2;
@@ -180,6 +180,13 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 .help-callout b{color:var(--text)}
 .help-cta{display:flex;gap:10px;margin-top:20px}
 .help-cta button{flex:1;background:var(--accent);color:#fff;border:none;padding:14px;font-size:13px;font-family:var(--font-mono);letter-spacing:.06em;border-radius:2px;cursor:pointer}
+.expo-card h3 .expo-tag{display:inline-block;margin-left:8px;padding:2px 8px;border:1px solid var(--border);border-radius:2px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text-sub);vertical-align:middle}
+.expo-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:10px 0 4px}
+.expo-grid .eq{padding:10px 8px;text-align:center;font-size:12px;border:1px solid var(--border);border-radius:2px;color:var(--muted);background:var(--surface-v);transition:all .3s}
+.expo-grid .eq.on{color:var(--text);border-color:var(--text);background:var(--surface);font-weight:600;box-shadow:inset 0 0 0 1px var(--text)}
+.expo-axis{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.06em}
+.expo-desc{font-size:12px;color:var(--text-sub);line-height:1.7;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
+.expo-desc b{color:var(--text)}
 .changelog{border:1px solid var(--border);border-radius:2px;margin-top:8px}
 .changelog summary{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--muted);padding:12px 14px;cursor:pointer;list-style:none}
 .changelog summary::before{content:"▸ "}
@@ -224,12 +231,12 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 <body>
 <div class="wrap">
 
-<div class="nav">NOTE HENSACHI DIAGNOSIS — PROMPT BUILDER <span id="verNav"></span></div>
-<h1>Note偏差値診断ビルダー</h1>
+<div class="nav">NOTE HENSACHI DIAGNOSIS — PROMPT BUILDER <b>V3</b> · IMP×PV EDITION <span id="verNav"></span></div>
+<h1>Note偏差値診断ビルダー V3</h1>
 
 <div class="credit">
-  <div class="c-row"><span class="c-label">Original</span><span>営業fafa｜note業界No.1営業マン（<a href="https://note.com/kohana1112" target="_blank" rel="noopener">note.com/kohana1112</a>）</span></div>
-  <div class="c-row"><span class="c-label">Tool by</span><span>KITAcore — 原作プロンプトをHTMLツール化</span></div>
+  <div class="c-row"><span class="c-label">Original</span><span>営業fafa｜note業界No.1営業マン（<a href="https://note.com/kohana1112" target="_blank" rel="noopener">note.com/kohana1112</a>）— 原作「Note偏差値診断」プロンプト・大学ランク表</span></div>
+  <div class="c-row"><span class="c-label">V3 by</span><span>KITAcore — 原作をHTMLツール化（v1）→ 成長記録・演出を追加（v2）→ IMP×PV対応で採点を再設計、露出タイプを追加（V3 / v3.0.0）</span></div>
 </div>
 
 <!-- view switch -->
@@ -269,15 +276,17 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
   <div class="field"><label>フォロワー数</label><input type="number" id="followers" min="0" inputmode="numeric" placeholder="0"></div>
   <div class="field"><label>フォロー数</label><div class="hint">あなたがフォローしている数</div><input type="number" id="following" min="0" inputmode="numeric" placeholder="0"></div>
   <div class="calc">フォロワー比（自動計算）: <b id="ratioDisp">0.0</b></div>
-  <div class="field"><label>月間ビュー数</label><div class="hint">noteダッシュボード参照</div><input type="number" id="views" min="0" inputmode="numeric" placeholder="0"></div>
+  <div class="field"><label>月間インプレッション数</label><div class="hint">noteダッシュボード「インプレッション」の月間合計（note内で表示された回数）</div><input type="number" id="imp" min="0" inputmode="numeric" placeholder="0"></div>
 </section>
 
 <!-- STEP 4 エンゲージメント -->
 <section class="step" data-title="エンゲージメント">
   <h2>04. Engagement — エンゲージメント</h2>
-  <p class="s-desc">スキ率は自動計算されます（月間スキ ÷ 月間ビュー × 100）。</p>
+  <p class="s-desc">開封効率（PV ÷ インプレッション × 100）とスキ率（スキ ÷ PV × 100）は自動計算されます。</p>
+  <div class="field"><label>月間PV数</label><div class="hint">noteダッシュボード「PV」の月間合計（記事ページが開かれた回数）</div><input type="number" id="pv" min="0" inputmode="numeric" placeholder="0"></div>
+  <div class="calc">開封効率（自動計算）: <b id="openDisp">0.0</b> %</div>
   <div class="field"><label>月間スキ数</label><div class="hint">noteダッシュボード参照</div><input type="number" id="likes" min="0" inputmode="numeric" placeholder="0"></div>
-  <div class="calc">月間平均スキ率（自動計算）: <b id="rateDisp">0.0</b></div>
+  <div class="calc">月間平均スキ率（自動計算・分母はPV）: <b id="rateDisp">0.0</b> %</div>
   <div class="field"><label>月間コメント数</label><div class="hint">noteダッシュボード参照</div><input type="number" id="comments" min="0" inputmode="numeric" placeholder="0"></div>
 </section>
 
@@ -294,7 +303,7 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 <!-- STEP 6 結果 -->
 <section class="step" data-title="結果とプロンプト">
   <h2>06. Result — 診断結果（参考値）</h2>
-  <p class="s-desc">元プロンプトの採点表を再現した参考値です。正式な結果はChatGPTのSTEP1出力を使用してください。</p>
+  <p class="s-desc">原作の採点表をIMP×PV対応で再設計した参考値です。正式な結果はChatGPTのSTEP1出力を使用してください。</p>
 
   <div class="big">
     <div><span class="lbl">Note偏差値</span><span class="num" id="pvDev">30.0</span><span class="dev-diff" id="pvDevDiff"></span></div>
@@ -322,6 +331,18 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
   <div class="bar-row"><div class="bar-head"><span class="bn">収益化</span><span><span id="vRev">0</span> /15<span class="diff" id="dRev"></span></span></div><div class="bar"><span class="ghost" id="gRev" style="display:none"></span><i id="bRev"></i></div></div>
   <div class="bar-row"><div class="bar-head"><span class="bn">影響力</span><span><span id="vInf">0</span> /25<span class="diff" id="dInf"></span></span></div><div class="bar"><span class="ghost" id="gInf" style="display:none"></span><i id="bInf"></i></div></div>
   <div class="bar-row"><div class="bar-head"><span class="bn">エンゲージメント</span><span><span id="vEng">0</span> /30<span class="diff" id="dEng"></span></span></div><div class="bar"><span class="ghost" id="gEng" style="display:none"></span><i id="bEng"></i></div></div>
+
+  <!-- exposure type (account-level quadrant: IMP × 開封効率) -->
+  <div class="nav-card expo-card" id="expoCard">
+    <h3>📡 露出タイプ <span class="expo-tag" id="expoTag">—</span></h3>
+    <div class="nc-sub">月間インプレッション（露出の量）× 開封効率（入口の強さ）の四象限で、アカウントの現在地を判定。</div>
+    <div class="expo-grid" id="expoGrid">
+      <div class="eq" data-k="potential">潜在力型</div><div class="eq" data-k="core">主力型</div>
+      <div class="eq" data-k="seed">育成型</div><div class="eq" data-k="exposed">露出先行型</div>
+    </div>
+    <div class="expo-axis"><span>← 露出 少</span><span>露出 多 →</span></div>
+    <div class="expo-desc" id="expoDesc"></div>
+  </div>
 
   <!-- attack navigator -->
   <div class="nav-card" id="navCard">
@@ -402,14 +423,23 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 
   <h3 class="sec">① 診断カード画像を作る流れ</h3>
   <ol class="help-flow">
-    <li><b>STEP 1〜5</b> であなたのnote実績の数字を入力します。フォロワー比とスキ率は自動で計算されます。</li>
+    <li><b>STEP 1〜5</b> であなたのnote実績の数字を入力します。フォロワー比・開封効率・スキ率は自動で計算されます。インプレッションとPVは、刷新後のnoteダッシュボードの2指標をそのまま入れてください。</li>
     <li><b>STEP 5</b> でnote愛ボーナス（メンバーシップ加入・有料記事購入・サポート経験）をタップ。学生証を作るなら氏名も入力。</li>
     <li><b>STEP 6</b> で参考スコア・偏差値・大学ランクが表示されます。</li>
     <li><b>「STEP1」プロンプトをコピー</b>して、アイコン画像と一緒に ChatGPT（Thinking推奨）へ送信 → 採点JSONが返ります。</li>
     <li>続けて <b>「STEP2」プロンプト</b>を送ると診断カード画像が完成。学生証がほしいときは STEP2 の代わりに <b>「STEP2-2」</b>を使います。</li>
   </ol>
   <div class="help-callout">
-    ツール内のスコアは <b>元プロンプトの採点表を再現した参考値</b>です。正式な結果は ChatGPT の STEP1 出力を採用してください。
+    ツール内のスコアは <b>原作の採点表をベースに、IMP×PV対応で再設計した参考値</b>です。正式な結果は ChatGPT の STEP1 出力を採用してください。
+  </div>
+
+  <h3 class="sec">⑤ V3（IMP×PV Edition）で変わったこと</h3>
+  <div class="help-list">
+    <div class="hl"><span class="hi">📊</span><span>noteダッシュボードの刷新で「ビュー」が <b>インプレッション</b>（表示された回数）と <b>PV</b>（開かれた回数）に分かれ、旧ビューは取得できなくなりました。V3は <b>この2指標を入力</b>します。</span></div>
+    <div class="hl"><span class="hi">🚪</span><span><b>開封効率</b>（PV ÷ インプレッション × 100）を新設。「表示されただけ」と「開かれた」を分けて採点します。エンゲージメント30点の内訳は スキ8・スキ率8・コメント8・<b>開封効率6</b> に再配分。基本スコア100点・偏差値スケール・大学ランク表は据え置きです。</span></div>
+    <div class="hl"><span class="hi">📡</span><span><b>露出タイプ</b>：インプレッション × 開封効率の四象限で、アカウントの現在地（主力型／潜在力型／露出先行型／育成型）と次の一手を表示します。スコアには加算しません。</span></div>
+    <div class="hl"><span class="hi">🧮</span><span>スキ率の分母は <b>ビュー → PV</b> に変更。値が大きく出るぶん閾値も引き上げています。閾値はすべて暫定で、実データの分布で再校正する前提です。</span></div>
+    <div class="hl"><span class="hi">🗂</span><span>旧バージョンの記録はそのまま読めます（偏差値・カテゴリの推移は連続）。ただし旧記録には開封効率・露出タイプが無いため「判定なし」になります。採点配分が変わったので、<b>旧記録との前回比は参考程度</b>に見てください。</span></div>
   </div>
 
   <h3 class="sec">② 成長記録のしくみ（変化を楽しむ）</h3>
@@ -448,7 +478,8 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
   <details class="changelog">
     <summary>バージョンごとの変更を見る</summary>
     <div class="cl-body">
-      <div class="cl-row cur"><span class="cl-ver">v2.2.0</span><span class="cl-date">2026-07-22</span><span class="cl-desc">成長プロンプト追加（ビフォーアフター学生証／昇格辞令・留年通知）。バージョン管理を導入。</span></div>
+      <div class="cl-row cur"><span class="cl-ver">v3.0.0</span><span class="cl-date">2026-10-23</span><span class="cl-desc">V3 IMP×PV Edition：noteダッシュボード刷新対応。月間ビュー → 月間インプレッション＋月間PVの2入力化、開封効率（PV÷IMP）スコア新設、スキ率の分母をPVに変更、エンゲージメント内訳を8/8/8/6に再配分、露出タイプ（四象限）判定を追加。記録スキーマ2（旧記録は読込可）。</span></div>
+      <div class="cl-row"><span class="cl-ver">v2.2.0</span><span class="cl-date">2026-07-22</span><span class="cl-desc">成長プロンプト追加（ビフォーアフター学生証／昇格辞令・留年通知）。バージョン管理を導入。</span></div>
       <div class="cl-row"><span class="cl-ver">v2.1.0</span><span class="cl-date">2026-07-22</span><span class="cl-desc">「使い方」タブを追加。</span></div>
       <div class="cl-row"><span class="cl-ver">v2.0.0</span><span class="cl-date">2026-07-22</span><span class="cl-desc">魔改造：成長記録（履歴・推移グラフ・前回比）、昇格演出、次の一手ナビ、実績バッジ、結果カードPNG、バックアップ機能を搭載。</span></div>
       <div class="cl-row"><span class="cl-ver">v1.0.0</span><span class="cl-date">—</span><span class="cl-desc">原作プロンプトをHTMLツール化（入力→スコア→診断プロンプト生成）。</span></div>
@@ -469,7 +500,7 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 
 <footer>
   <span id="verFoot"></span><br>
-  Original Prompt: 営業fafa｜note業界No.1営業マン ／ Tool: KITACORE<br>
+  Original Prompt: 営業fafa｜note業界No.1営業マン ／ V3 Redesign &amp; Build: KITACORE<br>
   本ツールはエンタメ診断です。偏差値・大学ランクは実際の能力や社会的評価を保証するものではありません。
 </footer>
 </div>
@@ -488,7 +519,7 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 
 <!-- ==================== RAW PROMPTS ==================== -->
 <script type="text/plain" id="rawStep1">
-# Noteアカウント偏差値診断｜STEP1 計算専用プロンプト（完全安定版）
+# Noteアカウント偏差値診断｜STEP1 計算専用プロンプト（V3 IMP×PV対応版）
 
 ## 目的
 
@@ -509,7 +540,7 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 - Noteを長く楽しんでいること
 - 継続して投稿していること
 - 投稿を積み上げていること
-- 読者に読まれていること
+- 読者に読まれていること（表示されるだけでなく、開かれていること）
 - スキやコメントなどの反応があること
 - 収益化も一定程度できていること
 - Note内で読む・買う・応援する活動もしていること
@@ -540,7 +571,10 @@ Noteを長く、深く、楽しく使っている人ほど数字が出やすい�
 ユーザーはアイコン画像をアップロードしたうえで、以下の形式で数値のみを入力する。
 
 単位は禁止。
-円、%、PV、人、日、ヶ月などは入力しない。
+円、%、回、人、日、ヶ月などは入力しない。
+
+「月間インプレッション数」はnote内で記事が表示された回数、「月間PV数」は記事ページが開かれた回数（noteダッシュボードの2指標）。
+「開封効率」はツール側で PV ÷ インプレッション × 100 を計算した値である。
 
 特別ボーナス項目は、以下のルールで入力する。
 
@@ -647,9 +681,9 @@ __USER_INPUT_JSON__
 
 - フォロワー数スコア：最大10点
 - フォロワー比スコア：最大3点
-- 月間ビュー数スコア：最大12点
+- 月間インプレッション数スコア：最大12点
 
-影響力スコア = フォロワー数スコア + フォロワー比スコア + 月間ビュー数スコア
+影響力スコア = フォロワー数スコア + フォロワー比スコア + 月間インプレッション数スコア
 
 ---
 
@@ -678,9 +712,9 @@ __USER_INPUT_JSON__
 
 ---
 
-## 3-3. 月間ビュー数スコア：最大12点
+## 3-3. 月間インプレッション数スコア：最大12点
 
-| 月間ビュー数 | 点数 |
+| 月間インプレッション数 | 点数 |
 |---|---:|
 | 0〜5000 | 3 |
 | 5001〜10000 | 5 |
@@ -692,52 +726,83 @@ __USER_INPUT_JSON__
 
 # 4. エンゲージメントスコア：最大30点
 
-エンゲージメントスコアは以下3項目の合計で算出する。
+エンゲージメントスコアは以下4項目の合計で算出する。
 
-- 月間スキ数スコア：最大10点
-- 月間平均スキ率スコア：最大10点
-- 月間コメント数スコア：最大10点
+- 月間スキ数スコア：最大8点
+- 月間平均スキ率スコア：最大8点
+- 月間コメント数スコア：最大8点
+- 開封効率スコア：最大6点
 
-エンゲージメントスコア = 月間スキ数スコア + 月間平均スキ率スコア + 月間コメント数スコア
+エンゲージメントスコア = 月間スキ数スコア + 月間平均スキ率スコア + 月間コメント数スコア + 開封効率スコア
 
 ---
 
-## 4-1. 月間スキ数スコア：最大10点
+## 4-1. 月間スキ数スコア：最大8点
 
 | 月間スキ数 | 点数 |
 |---|---:|
 | 0〜100 | 1 |
 | 101〜1000 | 3 |
-| 1001〜2500 | 6 |
-| 2501〜4500 | 8 |
-| 4501以上 | 10 |
+| 1001〜2500 | 5 |
+| 2501〜4500 | 6 |
+| 4501以上 | 8 |
 
 ---
 
-## 4-2. 月間平均スキ率スコア：最大10点
+## 4-2. 月間平均スキ率スコア：最大8点
 
-月間平均スキ率は、ユーザーが入力した値をそのまま使用する。
+月間平均スキ率（スキ ÷ PV × 100）は、ユーザーが入力した値をそのまま使用する。
 再計算は禁止。
 
 | 月間平均スキ率 | 点数 |
 |---|---:|
-| 0〜1.0 | 1 |
-| 1.1〜5.0 | 3 |
-| 5.1〜8.0 | 6 |
-| 8.1〜15.0 | 8 |
-| 15.1以上 | 10 |
+| 0〜2.0 | 1 |
+| 2.1〜5.0 | 3 |
+| 5.1〜10.0 | 5 |
+| 10.1〜20.0 | 6 |
+| 20.1以上 | 8 |
 
 ---
 
-## 4-3. 月間コメント数スコア：最大10点
+## 4-3. 月間コメント数スコア：最大8点
 
 | 月間コメント数 | 点数 |
 |---|---:|
 | 0〜10 | 1 |
 | 11〜100 | 3 |
-| 101〜300 | 6 |
-| 301〜600 | 8 |
-| 601以上 | 10 |
+| 101〜300 | 5 |
+| 301〜600 | 6 |
+| 601以上 | 8 |
+
+---
+
+## 4-4. 開封効率スコア：最大6点
+
+開封効率（PV ÷ インプレッション × 100）は、ユーザーが入力した値をそのまま使用する。
+再計算は禁止。
+表示されただけでなく、どれだけ開かれたか（入口の強さ）を評価する。
+
+| 開封効率 | 点数 |
+|---|---:|
+| 0〜2.0 | 1 |
+| 2.1〜4.0 | 2 |
+| 4.1〜6.0 | 3 |
+| 6.1〜10.0 | 5 |
+| 10.1以上 | 6 |
+
+---
+
+## 4-5. 露出タイプ判定（スコアには加算しない）
+
+月間インプレッション数と開封効率の2軸で、アカウントの現在地を4つに分類する。
+スコアや偏差値には影響しない。最終JSONの「露出タイプ」に文字列で出力する。
+
+| 条件 | 露出タイプ |
+|---|---|
+| インプレッション 30000以上 かつ 開封効率 5.0以上 | 主力型 |
+| インプレッション 30000未満 かつ 開封効率 5.0以上 | 潜在力型 |
+| インプレッション 30000以上 かつ 開封効率 5.0未満 | 露出先行型 |
+| インプレッション 30000未満 かつ 開封効率 5.0未満 | 育成型 |
 
 ---
 
@@ -864,24 +929,26 @@ note愛ボーナスは基本スコアに含めない。
 5. 収益化スコアを確定する
 6. フォロワー数スコアを確定する
 7. フォロワー比スコアを確定する
-8. 月間ビュー数スコアを確定する
+8. 月間インプレッション数スコアを確定する
 9. 影響力スコアを計算する
 10. 月間スキ数スコアを確定する
 11. 月間平均スキ率スコアを確定する
 12. 月間コメント数スコアを確定する
-13. エンゲージメントスコアを計算する
-14. 基本スコアを計算する
-15. メンバーシップ加入経験ボーナスを確定する
-16. 有料記事購入経験ボーナスを確定する
-17. サポート経験ボーナスを確定する
-18. note愛ボーナスを計算する
-19. 最終戦闘力を計算する
-20. 基本スコアのみを使って偏差値を計算する
-21. 偏差値を小数点第1位に丸める
-22. 確定した偏差値をマッピング表に当てはめる
-23. 大学ランク、大学名、総合評価ランク、星評価を確定する
-24. 検算する
-25. 最終JSONのみ出力する
+13. 開封効率スコアを確定する
+14. エンゲージメントスコアを計算する
+15. 基本スコアを計算する
+16. メンバーシップ加入経験ボーナスを確定する
+17. 有料記事購入経験ボーナスを確定する
+18. サポート経験ボーナスを確定する
+19. note愛ボーナスを計算する
+20. 最終戦闘力を計算する
+21. 基本スコアのみを使って偏差値を計算する
+22. 偏差値を小数点第1位に丸める
+23. 確定した偏差値をマッピング表に当てはめる
+24. 大学ランク、大学名、総合評価ランク、星評価を確定する
+25. 露出タイプを判定する
+26. 検算する
+27. 最終JSONのみ出力する
 
 ---
 
@@ -894,8 +961,8 @@ note愛ボーナスは基本スコアに含めない。
 ## 9-1. カテゴリ計算の検算
 
 - 活動期間スコア + 総投稿数スコア + 連続投稿数スコア = 継続・蓄積スコア になっている
-- フォロワー数スコア + フォロワー比スコア + 月間ビュー数スコア = 影響力スコア になっている
-- 月間スキ数スコア + 月間平均スキ率スコア + 月間コメント数スコア = エンゲージメントスコア になっている
+- フォロワー数スコア + フォロワー比スコア + 月間インプレッション数スコア = 影響力スコア になっている
+- 月間スキ数スコア + 月間平均スキ率スコア + 月間コメント数スコア + 開封効率スコア = エンゲージメントスコア になっている
 - 継続・蓄積スコア + 収益化スコア + 影響力スコア + エンゲージメントスコア = 基本スコア になっている
 
 ---
@@ -951,12 +1018,14 @@ note愛ボーナスは基本スコアに含めない。
   "収益化スコア": 0,
   "フォロワー数スコア": 0,
   "フォロワー比スコア": 0,
-  "月間ビュー数スコア": 0,
+  "月間インプレッション数スコア": 0,
   "影響力スコア": 0,
   "月間スキ数スコア": 0,
   "月間平均スキ率スコア": 0,
   "月間コメント数スコア": 0,
+  "開封効率スコア": 0,
   "エンゲージメントスコア": 0,
+  "露出タイプ": "",
   "基本スコア計算式": "0 + 0 + 0 + 0 = 0",
   "基本スコア": 0,
   "メンバーシップ加入経験ボーナス": 0,
@@ -1350,12 +1419,15 @@ note愛ボーナス：+{note愛ボーナス}
 - 収益金額
 - フォロワー数
 - フォロワー比
-- 月間ビュー数
+- 月間インプレッション数
+- 月間PV数
+- 開封効率
 - 月間コメント数
 - 月間スキ数
 - 月間平均スキ率
 
 実数データは表示しない。
+「露出タイプ」は実数ではないため、小さなタグ（例：主力型）として1箇所だけ表示してよい。
 
 ---
 
@@ -1481,12 +1553,14 @@ STEP1結果JSONには、以下のキーが含まれている前提で処理す�
 	•	収益化スコア
 	•	フォロワー数スコア
 	•	フォロワー比スコア
-	•	月間ビュー数スコア
+	•	月間インプレッション数スコア
 	•	影響力スコア
 	•	月間スキ数スコア
 	•	月間平均スキ率スコア
 	•	月間コメント数スコア
+	•	開封効率スコア
 	•	エンゲージメントスコア
+	•	露出タイプ
 	•	基本スコア計算式
 	•	基本スコア
 	•	メンバーシップ加入経験ボーナス
@@ -1707,7 +1781,7 @@ SNSで「ここまで伸びた」と自慢したくなる、華やかで見栄�
 - 数値・大学名・ランク・星評価の変更
 - JSONに存在しない診断データの追加
 - 計算式や長文の講評文を画像内に表示すること
-- 実数データ（フォロワー数・収益額・ビュー数など）の表示
+- 実数データ（フォロワー数・収益額・インプレッション数・PV数など）の表示
 
 ---
 
@@ -1784,11 +1858,11 @@ __DOC_MOOD__
 (function(){
 "use strict";
 /* ===== VERSION (single source of truth) ===== */
-var APP_VERSION = "2.2.0";      // アプリのバージョン（機能）
-var APP_BUILD   = "2026-07-22"; // ビルド日
-var DATA_SCHEMA = 1;            // 記録データの型バージョン（互換判定用・別物）
+var APP_VERSION = "3.0.0";      // アプリのバージョン（機能）— V3 IMP×PV Edition
+var APP_BUILD   = "2026-10-23"; // ビルド日
+var DATA_SCHEMA = 2;            // 記録データの型バージョン（2: imp/pv/open/expo を持つ。1 は旧ビュー時代）
 var $ = function(id){return document.getElementById(id);};
-var numIds = ["months","streak","posts","revenue","followers","following","views","likes","comments"];
+var numIds = ["months","streak","posts","revenue","followers","following","imp","pv","likes","comments"];
 var toggles = {member:false, purchase:false, support:false};
 
 /* ---------- wizard ---------- */
@@ -1831,10 +1905,39 @@ function scStreak(v){ return band(v,[[7,1],[30,3],[100,6],[199,8],[INF,10]]); }
 function scRevenue(v){ if(v<=0)return 0; return band(v,[[10000,3],[100000,5],[300000,8],[500000,12],[INF,15]]); }
 function scFollowers(v){ return band(v,[[500,1],[1000,3],[2500,6],[5000,8],[INF,10]]); }
 function scRatio(v){ if(v<=1.0)return 1; if(v<=3.0)return 2; return 3; }
-function scViews(v){ return band(v,[[5000,3],[10000,5],[30000,8],[100000,10],[INF,12]]); }
-function scLikes(v){ return band(v,[[100,1],[1000,3],[2500,6],[4500,8],[INF,10]]); }
-function scRate(v){ if(v<=1.0)return 1; if(v<=5.0)return 3; if(v<=8.0)return 6; if(v<=15.0)return 8; return 10; }
-function scComments(v){ return band(v,[[10,1],[100,3],[300,6],[600,8],[INF,10]]); }
+/* ===== V3 (IMP×PV) 閾値 — ここだけ触れば校正できる =====
+   旧「月間ビュー」は note 内表示（タイムライン露出）込みの値だったため、連続性を優先して
+   インプレッションの閾値は旧ビューの閾値を据え置く（仮置き）。
+   スキ率の分母はビュー→PVに変わり値が大きく出るため、閾値を上方修正（仮置き）。
+   開封効率の閾値は KITAcore 記事「2軸で見たら自分の記事の見方が変わった」の
+   記事群中央値 5.52% を基準に 5% 前後を中位に置く（仮置き）。
+   ※ いずれも実データ（ダッシュボード自動収集CSV）で分位点を見て再校正する前提。 */
+var TH = {
+  imp:      [[5000,3],[10000,5],[30000,8],[100000,10],[INF,12]],   // 月間インプレッション → 最大12
+  likes:    [[100,1],[1000,3],[2500,5],[4500,6],[INF,8]],          // 月間スキ数 → 最大8（旧10）
+  rate:     [[2.0,1],[5.0,3],[10.0,5],[20.0,6],[INF,8]],           // スキ率(÷PV) % → 最大8（旧10, 分母ビュー）
+  comments: [[10,1],[100,3],[300,5],[600,6],[INF,8]],              // 月間コメント → 最大8（旧10）
+  open:     [[2.0,1],[4.0,2],[6.0,3],[10.0,5],[INF,6]],            // 開封効率(PV÷IMP) % → 最大6（新設）
+  expoImp:  30000,   // 露出タイプ判定：月間IMPの境界（これ以上＝露出 多）
+  expoOpen: 5.0      // 露出タイプ判定：開封効率%の境界（これ以上＝入口 強）
+};
+function scImp(v){ return band(v,TH.imp); }
+function scLikes(v){ return band(v,TH.likes); }
+function scRate(v){ return band(v,TH.rate); }
+function scComments(v){ return band(v,TH.comments); }
+function scOpen(v){ return band(v,TH.open); }
+
+/* 露出タイプ（アカウント版四象限）: 横軸=IMP, 縦軸=開封効率 */
+var EXPO = {
+  core:      {key:"core",      name:"主力型",     icon:"🏆", desc:"露出も開封効率も高い。<b>今いちばん強い状態</b>。うまくいっている型を言語化して再現し、続編・深掘りで積み上げる。"},
+  potential: {key:"potential", name:"潜在力型",   icon:"🌱", desc:"露出は少ないが、表示された人にはよく開かれている。<b>足りないのは露出だけ</b>。再告知・関連記事からの導線・SNS展開で露出を足す。"},
+  exposed:   {key:"exposed",   name:"露出先行型", icon:"📢", desc:"表示は多いのに開かれていない。<b>露出はもう足りている</b>。タイトル・サムネ・テーマの伝え方（入口）を直す。"},
+  seed:      {key:"seed",      name:"育成型",     icon:"🔧", desc:"露出も入口もまだ弱い。<b>ダメではなく改善余地が大きい</b>状態。読者が求める切り口から企画を考え直す。"}
+};
+function expoType(imp, open){
+  var hi=imp>=TH.expoImp, st=open>=TH.expoOpen;
+  return hi ? (st?EXPO.core:EXPO.exposed) : (st?EXPO.potential:EXPO.seed);
+}
 
 var UNI = [
   [78.0,"神域","ハーバード大学（ロースクール）","SSS+","★★★★★★★★★★"],
@@ -1856,23 +1959,25 @@ function round1(v){ return Math.round(v*10)/10; }
 function n(id){ var v=parseFloat($(id).value); return isNaN(v)||v<0?0:v; }
 
 function compute(){
-  var followers=n("followers"), following=n("following"), views=n("views"), likes=n("likes");
+  var followers=n("followers"), following=n("following"), imp=n("imp"), pv=n("pv"), likes=n("likes");
   var ratio = following>0 ? round1(followers/following) : 0.0;
-  var rate  = views>0 ? round1(likes/views*100) : 0.0;
+  var open  = imp>0 ? round1(pv/imp*100) : 0.0;     // 開封効率 % = PV ÷ IMP × 100
+  var rate  = pv>0  ? round1(likes/pv*100) : 0.0;   // スキ率 %  = スキ ÷ PV × 100（V3から分母はPV）
   var s = {
     months: scMonths(n("months")), posts: scPosts(n("posts")), streak: scStreak(n("streak")),
     revenue: scRevenue(n("revenue")), followers: scFollowers(followers), ratio: scRatio(ratio),
-    views: scViews(views), likes: scLikes(likes), rate: scRate(rate), comments: scComments(n("comments"))
+    imp: scImp(imp), likes: scLikes(likes), rate: scRate(rate), comments: scComments(n("comments")), open: scOpen(open)
   };
   var cont = s.months+s.posts+s.streak;
-  var inf  = s.followers+s.ratio+s.views;
-  var eng  = s.likes+s.rate+s.comments;
+  var inf  = s.followers+s.ratio+s.imp;
+  var eng  = s.likes+s.rate+s.comments+s.open;
+  var expo = expoType(imp, open);
   var base = cont+s.revenue+inf+eng;
   var bMember = toggles.member?4:0, bPurchase = toggles.purchase?3:0, bSupport = toggles.support?3:0;
   var bonus = bMember+bPurchase+bSupport;
   var total = base+bonus;
   var dev = round1(Math.min(80, Math.max(30, 30 + base*0.5)));
-  return {s:s, ratio:ratio, rate:rate, cont:cont, inf:inf, eng:eng, base:base,
+  return {s:s, ratio:ratio, rate:rate, open:open, expo:expo, cont:cont, inf:inf, eng:eng, base:base,
           bMember:bMember, bPurchase:bPurchase, bSupport:bSupport, bonus:bonus,
           total:total, dev:dev, uni:mapUni(dev)};
 }
@@ -1886,7 +1991,9 @@ function inputJson(r){
   '  "直近3ヶ月収益_円": '+n("revenue")+',\n'+
   '  "フォロワー数": '+n("followers")+',\n'+
   '  "フォロワー比": '+r.ratio.toFixed(1)+',\n'+
-  '  "月間ビュー数": '+n("views")+',\n'+
+  '  "月間インプレッション数": '+n("imp")+',\n'+
+  '  "月間PV数": '+n("pv")+',\n'+
+  '  "開封効率": '+r.open.toFixed(1)+',\n'+
   '  "月間コメント数": '+n("comments")+',\n'+
   '  "月間スキ数": '+n("likes")+',\n'+
   '  "月間平均スキ率": '+r.rate.toFixed(1)+',\n'+
@@ -1904,12 +2011,14 @@ function resultJson(r){
   '  "収益化スコア": '+r.s.revenue+',\n'+
   '  "フォロワー数スコア": '+r.s.followers+',\n'+
   '  "フォロワー比スコア": '+r.s.ratio+',\n'+
-  '  "月間ビュー数スコア": '+r.s.views+',\n'+
+  '  "月間インプレッション数スコア": '+r.s.imp+',\n'+
   '  "影響力スコア": '+r.inf+',\n'+
   '  "月間スキ数スコア": '+r.s.likes+',\n'+
   '  "月間平均スキ率スコア": '+r.s.rate+',\n'+
   '  "月間コメント数スコア": '+r.s.comments+',\n'+
+  '  "開封効率スコア": '+r.s.open+',\n'+
   '  "エンゲージメントスコア": '+r.eng+',\n'+
+  '  "露出タイプ": "'+r.expo.name+'",\n'+
   '  "基本スコア計算式": "'+r.cont+' + '+r.s.revenue+' + '+r.inf+' + '+r.eng+' = '+r.base+'",\n'+
   '  "基本スコア": '+r.base+',\n'+
   '  "メンバーシップ加入経験ボーナス": '+r.bMember+',\n'+
@@ -1932,6 +2041,8 @@ function render(){
   var r = compute();
   $("ratioDisp").textContent = r.ratio.toFixed(1);
   $("rateDisp").textContent = r.rate.toFixed(1);
+  $("openDisp").textContent = r.open.toFixed(1);
+  renderExpo(r);
   $("pvDev").textContent = r.dev.toFixed(1);
   $("pvPower").textContent = r.total;
   $("pvUni").textContent = r.uni[2];
@@ -1954,8 +2065,18 @@ function render(){
   postRender(r);
 }
 
+/* ---------- exposure type card ---------- */
+function renderExpo(r){
+  var e=r.expo, hasData = n("imp")>0 && n("pv")>0;
+  $("expoTag").textContent = hasData ? (e.icon+" "+e.name) : "— 未入力";
+  Array.prototype.forEach.call($("expoGrid").children, function(c){ c.classList.toggle("on", hasData && c.getAttribute("data-k")===e.key); });
+  $("expoDesc").innerHTML = hasData
+    ? ('月間IMP <b>'+fmtNum(n("imp"))+'</b> ／ 開封効率 <b>'+r.open.toFixed(1)+'%</b>（境界: IMP '+fmtNum(TH.expoImp)+' ・ 開封効率 '+TH.expoOpen.toFixed(1)+'%）<br>'+e.desc)
+    : 'STEP3の月間インプレッションとSTEP4の月間PVを入力すると判定されます。';
+}
+
 /* ---------- persistence ---------- */
-var LS_KEY="note_hensachi_builder_v2";
+var LS_KEY="note_hensachi_builder_v3"; // v2 キーは旧ビュー項目を持つため分離（履歴キー HK は共有）
 function save(){
   try{
     var d={t:toggles, name:$("uname").value, step:cur};
@@ -1987,6 +2108,8 @@ numIds.concat(["uname"]).forEach(function(id){
     var r=compute();
     $("ratioDisp").textContent=r.ratio.toFixed(1);
     $("rateDisp").textContent=r.rate.toFixed(1);
+    $("openDisp").textContent=r.open.toFixed(1);
+    renderExpo(r);
     save();
   });
 });
@@ -2041,9 +2164,10 @@ function snapshot(r){
     dev: r.dev, base: r.base, bonus: r.bonus, total: r.total,
     rank: r.uni[1], uni: r.uni[2], grade: r.uni[3], stars: r.uni[4],
     cont: r.cont, rev: r.s.revenue, inf: r.inf, eng: r.eng,
+    schema: DATA_SCHEMA, open: r.open, expo: r.expo.name,   // schema 2 から追加（旧レコードには無い）
     inputs: {
       months:n("months"), streak:n("streak"), posts:n("posts"), revenue:n("revenue"),
-      followers:n("followers"), following:n("following"), views:n("views"),
+      followers:n("followers"), following:n("following"), imp:n("imp"), pv:n("pv"),
       likes:n("likes"), comments:n("comments"),
       member:!!toggles.member, purchase:!!toggles.purchase, support:!!toggles.support
     }
@@ -2074,9 +2198,9 @@ var METRICS = [
   {id:"streak",   label:"連続投稿",   unit:"日",   scale:1,     table:[[7,1],[30,3],[100,6],[199,8],[Infinity,10]]},
   {id:"revenue",  label:"直近3ヶ月収益", unit:"円", scale:10000, table:[[0,0],[10000,3],[100000,5],[300000,8],[500000,12],[Infinity,15]]},
   {id:"followers",label:"フォロワー", unit:"人",   scale:100,   table:[[500,1],[1000,3],[2500,6],[5000,8],[Infinity,10]]},
-  {id:"views",    label:"月間ビュー", unit:"回",   scale:1000,  table:[[5000,3],[10000,5],[30000,8],[100000,10],[Infinity,12]]},
-  {id:"likes",    label:"月間スキ",   unit:"個",   scale:100,   table:[[100,1],[1000,3],[2500,6],[4500,8],[Infinity,10]]},
-  {id:"comments", label:"月間コメント", unit:"件", scale:10,    table:[[10,1],[100,3],[300,6],[600,8],[Infinity,10]]}
+  {id:"imp",      label:"月間インプレッション", unit:"回", scale:1000, table:TH.imp},
+  {id:"likes",    label:"月間スキ",   unit:"個",   scale:100,   table:TH.likes},
+  {id:"comments", label:"月間コメント", unit:"件", scale:10,    table:TH.comments}
 ];
 function curPts(m,v){ for(var i=0;i<m.table.length;i++){ if(v<=m.table[i][0]) return m.table[i][1]; } return m.table[m.table.length-1][1]; }
 function nextStep(m,v){
@@ -2142,7 +2266,8 @@ function snapBlock(s){
   return {
     "日付": fullDate(s.t), "偏差値": s.dev, "大学名": s.uni, "大学ランク": s.rank,
     "総合評価ランク": s.grade, "最終戦闘力": s.total, "星評価": s.stars,
-    "継続・蓄積": s.cont, "収益化": s.rev, "影響力": s.inf, "エンゲージメント": s.eng
+    "継続・蓄積": s.cont, "収益化": s.rev, "影響力": s.inf, "エンゲージメント": s.eng,
+    "露出タイプ": s.expo || "（旧版記録・判定なし）"
   };
 }
 function buildGrowthData(h){
@@ -2502,7 +2627,7 @@ function buildCard(){
   ctx.fillStyle="#6B6B6B"; ctx.font="600 15px monospace";
   ctx.fillText("NOTE HENSACHI DIAGNOSIS", 40, 60);
   ctx.fillStyle="#111111"; ctx.font="700 30px 'Helvetica Neue',sans-serif";
-  ctx.fillText("Note偏差値 診断結果", 40, 100);
+  ctx.fillText("Note偏差値 診断結果 — V3", 40, 100);
   // big dev
   ctx.fillStyle="#6B6B6B"; ctx.font="600 14px monospace"; ctx.fillText("NOTE 偏差値", 40, 175);
   ctx.fillStyle="#111111"; ctx.font="700 120px 'Helvetica Neue',sans-serif";
@@ -2552,7 +2677,7 @@ function buildCard(){
   }
   // footer
   ctx.fillStyle="#6B6B6B"; ctx.font="11px monospace";
-  ctx.fillText("Original: 営業fafa｜note業界No.1営業マン / Tool: KITAcore", 40, H-44);
+  ctx.fillText("Original: 営業fafa｜note業界No.1営業マン / V3 Redesign & Build: KITAcore", 40, H-44);
   ctx.fillText(fullDate(latest.t)+" 時点 ｜ エンタメ診断", 40, H-28);
   ctx.fillText("note-hensachi-builder v"+APP_VERSION+" (build "+APP_BUILD+")", 40, H-12);
   $("cardModal").classList.add("show");
