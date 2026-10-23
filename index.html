@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Note偏差値診断 Prompt Builder V2 — IMP×PV Edition</title>
+<title>Note偏差値診断 Prompt Builder V3 — IMP×PV Edition</title>
 <style>
 :root{
   --bg:#E9E9E9; --surface:#FFFFFF; --surface-v:#F4F4F2;
@@ -231,12 +231,12 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 <body>
 <div class="wrap">
 
-<div class="nav">NOTE HENSACHI DIAGNOSIS — PROMPT BUILDER <b>V2</b> · IMP×PV EDITION <span id="verNav"></span></div>
+<div class="nav">NOTE HENSACHI DIAGNOSIS — PROMPT BUILDER <b>V3</b> · IMP×PV EDITION <span id="verNav"></span></div>
 <h1>Note偏差値診断ビルダー</h1>
 
 <div class="credit">
   <div class="c-row"><span class="c-label">Original</span><span>営業fafa｜note業界No.1営業マン（<a href="https://note.com/kohana1112" target="_blank" rel="noopener">note.com/kohana1112</a>）— 原作「Note偏差値診断」プロンプト・大学ランク表</span></div>
-  <div class="c-row"><span class="c-label">V2 by</span><span>KITAcore — 原作をHTMLツール化（v1）→ 成長記録・演出を追加（v2）→ IMP×PV対応で採点を再設計、露出タイプを追加（V2 / v3）</span></div>
+  <div class="c-row"><span class="c-label">V3 by</span><span>KITAcore — 原作をHTMLツール化（v1）→ 成長記録・演出を追加（v2）→ IMP×PV対応で採点を再設計、露出タイプを追加（V3 / v3.0.0）</span></div>
 </div>
 
 <!-- view switch -->
@@ -433,9 +433,9 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
     ツール内のスコアは <b>原作の採点表をベースに、IMP×PV対応で再設計した参考値</b>です。正式な結果は ChatGPT の STEP1 出力を採用してください。
   </div>
 
-  <h3 class="sec">⑤ V2（IMP×PV Edition）で変わったこと</h3>
+  <h3 class="sec">⑤ V3（IMP×PV Edition）で変わったこと</h3>
   <div class="help-list">
-    <div class="hl"><span class="hi">📊</span><span>noteダッシュボードの刷新で「ビュー」が <b>インプレッション</b>（表示された回数）と <b>PV</b>（開かれた回数）に分かれ、旧ビューは取得できなくなりました。V2は <b>この2指標を入力</b>します。</span></div>
+    <div class="hl"><span class="hi">📊</span><span>noteダッシュボードの刷新で「ビュー」が <b>インプレッション</b>（表示された回数）と <b>PV</b>（開かれた回数）に分かれ、旧ビューは取得できなくなりました。V3は <b>この2指標を入力</b>します。</span></div>
     <div class="hl"><span class="hi">🚪</span><span><b>開封効率</b>（PV ÷ インプレッション × 100）を新設。「表示されただけ」と「開かれた」を分けて採点します。エンゲージメント30点の内訳は スキ8・スキ率8・コメント8・<b>開封効率6</b> に再配分。基本スコア100点・偏差値スケール・大学ランク表は据え置きです。</span></div>
     <div class="hl"><span class="hi">📡</span><span><b>露出タイプ</b>：インプレッション × 開封効率の四象限で、アカウントの現在地（主力型／潜在力型／露出先行型／育成型）と次の一手を表示します。スコアには加算しません。</span></div>
     <div class="hl"><span class="hi">🧮</span><span>スキ率の分母は <b>ビュー → PV</b> に変更。値が大きく出るぶん閾値も引き上げています。閾値はすべて暫定で、実データの分布で再校正する前提です。</span></div>
@@ -478,7 +478,7 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
   <details class="changelog">
     <summary>バージョンごとの変更を見る</summary>
     <div class="cl-body">
-      <div class="cl-row cur"><span class="cl-ver">v3.0.0</span><span class="cl-date">2026-10-23</span><span class="cl-desc">V2 IMP×PV Edition：noteダッシュボード刷新対応。月間ビュー → 月間インプレッション＋月間PVの2入力化、開封効率（PV÷IMP）スコア新設、スキ率の分母をPVに変更、エンゲージメント内訳を8/8/8/6に再配分、露出タイプ（四象限）判定を追加。記録スキーマ2（旧記録は読込可）。</span></div>
+      <div class="cl-row cur"><span class="cl-ver">v3.0.0</span><span class="cl-date">2026-10-23</span><span class="cl-desc">V3 IMP×PV Edition：noteダッシュボード刷新対応。月間ビュー → 月間インプレッション＋月間PVの2入力化、開封効率（PV÷IMP）スコア新設、スキ率の分母をPVに変更、エンゲージメント内訳を8/8/8/6に再配分、露出タイプ（四象限）判定を追加。記録スキーマ2（旧記録は読込可）。</span></div>
       <div class="cl-row"><span class="cl-ver">v2.2.0</span><span class="cl-date">2026-07-22</span><span class="cl-desc">成長プロンプト追加（ビフォーアフター学生証／昇格辞令・留年通知）。バージョン管理を導入。</span></div>
       <div class="cl-row"><span class="cl-ver">v2.1.0</span><span class="cl-date">2026-07-22</span><span class="cl-desc">「使い方」タブを追加。</span></div>
       <div class="cl-row"><span class="cl-ver">v2.0.0</span><span class="cl-date">2026-07-22</span><span class="cl-desc">魔改造：成長記録（履歴・推移グラフ・前回比）、昇格演出、次の一手ナビ、実績バッジ、結果カードPNG、バックアップ機能を搭載。</span></div>
@@ -500,7 +500,7 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 
 <footer>
   <span id="verFoot"></span><br>
-  Original Prompt: 営業fafa｜note業界No.1営業マン ／ V2 Redesign &amp; Build: KITACORE<br>
+  Original Prompt: 営業fafa｜note業界No.1営業マン ／ V3 Redesign &amp; Build: KITACORE<br>
   本ツールはエンタメ診断です。偏差値・大学ランクは実際の能力や社会的評価を保証するものではありません。
 </footer>
 </div>
@@ -519,7 +519,7 @@ footer{margin-top:48px;font-family:var(--font-mono);font-size:10px;letter-spacin
 
 <!-- ==================== RAW PROMPTS ==================== -->
 <script type="text/plain" id="rawStep1">
-# Noteアカウント偏差値診断｜STEP1 計算専用プロンプト（V2 IMP×PV対応版）
+# Noteアカウント偏差値診断｜STEP1 計算専用プロンプト（V3 IMP×PV対応版）
 
 ## 目的
 
@@ -1858,7 +1858,7 @@ __DOC_MOOD__
 (function(){
 "use strict";
 /* ===== VERSION (single source of truth) ===== */
-var APP_VERSION = "3.0.0";      // アプリのバージョン（機能）— V2 IMP×PV Edition
+var APP_VERSION = "3.0.0";      // アプリのバージョン（機能）— V3 IMP×PV Edition
 var APP_BUILD   = "2026-10-23"; // ビルド日
 var DATA_SCHEMA = 2;            // 記録データの型バージョン（2: imp/pv/open/expo を持つ。1 は旧ビュー時代）
 var $ = function(id){return document.getElementById(id);};
@@ -1905,7 +1905,7 @@ function scStreak(v){ return band(v,[[7,1],[30,3],[100,6],[199,8],[INF,10]]); }
 function scRevenue(v){ if(v<=0)return 0; return band(v,[[10000,3],[100000,5],[300000,8],[500000,12],[INF,15]]); }
 function scFollowers(v){ return band(v,[[500,1],[1000,3],[2500,6],[5000,8],[INF,10]]); }
 function scRatio(v){ if(v<=1.0)return 1; if(v<=3.0)return 2; return 3; }
-/* ===== V2 (IMP×PV) 閾値 — ここだけ触れば校正できる =====
+/* ===== V3 (IMP×PV) 閾値 — ここだけ触れば校正できる =====
    旧「月間ビュー」は note 内表示（タイムライン露出）込みの値だったため、連続性を優先して
    インプレッションの閾値は旧ビューの閾値を据え置く（仮置き）。
    スキ率の分母はビュー→PVに変わり値が大きく出るため、閾値を上方修正（仮置き）。
@@ -1962,7 +1962,7 @@ function compute(){
   var followers=n("followers"), following=n("following"), imp=n("imp"), pv=n("pv"), likes=n("likes");
   var ratio = following>0 ? round1(followers/following) : 0.0;
   var open  = imp>0 ? round1(pv/imp*100) : 0.0;     // 開封効率 % = PV ÷ IMP × 100
-  var rate  = pv>0  ? round1(likes/pv*100) : 0.0;   // スキ率 %  = スキ ÷ PV × 100（V2から分母はPV）
+  var rate  = pv>0  ? round1(likes/pv*100) : 0.0;   // スキ率 %  = スキ ÷ PV × 100（V3から分母はPV）
   var s = {
     months: scMonths(n("months")), posts: scPosts(n("posts")), streak: scStreak(n("streak")),
     revenue: scRevenue(n("revenue")), followers: scFollowers(followers), ratio: scRatio(ratio),
@@ -2677,7 +2677,7 @@ function buildCard(){
   }
   // footer
   ctx.fillStyle="#6B6B6B"; ctx.font="11px monospace";
-  ctx.fillText("Original: 営業fafa｜note業界No.1営業マン / V2 Redesign & Build: KITAcore", 40, H-44);
+  ctx.fillText("Original: 営業fafa｜note業界No.1営業マン / V3 Redesign & Build: KITAcore", 40, H-44);
   ctx.fillText(fullDate(latest.t)+" 時点 ｜ エンタメ診断", 40, H-28);
   ctx.fillText("note-hensachi-builder v"+APP_VERSION+" (build "+APP_BUILD+")", 40, H-12);
   $("cardModal").classList.add("show");
